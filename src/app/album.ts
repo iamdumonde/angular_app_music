@@ -13,4 +13,17 @@ export class Album {
     ){}
 }
 
-export class List {}
+export interface List {
+  id:string,
+  list:Array<string>,
+}
+
+// export class List {
+//   constructor(
+//     public id:string,
+//     public list:string[],
+//   ){
+//     this.id = id;
+//     this.list = list;
+//   }
+// }

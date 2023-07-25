@@ -11,12 +11,12 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home
-                        <span class="sr-only">(current)</span>
+                        <!-- <span class="sr-only">(current)</span> -->
                     </a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Se connecter
-                        <span class="sr-only">(current)</span>
+                        <!-- <span class="sr-only">(current)</span> -->
                     </a>
                 </li>
             </ul>
@@ -28,21 +28,8 @@
     </nav>
     <div class="row content">
         <div class="col-sm-4 video">
-            <div class="card">
-                <img class="card-img-top" src="./assets/images/default_image.png" alt="Group Music">
-                <div class="card-body">
-                    <h5 class="card-title">Dark</h5>
-                    <p class="card-text">Punk electro</p>
-                    <a href="#" class="btn btn-primary">Play >> </a>
-                </div>
-                <ul class="list-group">
-                    <li class="list-group-item active">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Morbi leo risus</li>
-                    <li class="list-group-item">Porta ac consectetur ac</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
-                </ul>
-            </div>
+            <!-- AlbumDetails communication parent vers enfant -->
+            <app-album-details [album]="selectedAlbum" (onPlay)="playParent($event)"></app-album-details>
         </div><!-- .video -->
         <div class="col-sm-8 music" *ngIf="albums">
             <nav aria-label="Page navigation example">
@@ -65,25 +52,26 @@
                 </ul>
             </nav><!-- .pagination -->
             <button type="button" class="btn btn-lg btn-danger">You are in an anonymous mode.</button>
-            <div class="card" *ngFor="let album of albums">
+            <div class="card div_albums_card" *ngFor="let album of albums">
                 <div class="card-header">
                     {{ album.ref }}
+                    <span *ngIf="status === album.id">[Play]</span>
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ album.title }}</h5>
                     <p class="card-text">{{ album.description }}</p>
-
-                    <div *ngIf="album.tags">
-                        <span *ngFor="let tag of album.tags" class="btn btn-outline-white btn-danger" href="#"
-                            role="button">{{ tag }}</span>
+                    <div class="div_tags" *ngIf="album.tags">
+                        <span *ngFor="let tag of album.tags" class="btn btn-outline-white btn-primary span_tags"
+                            href="#" role="button">{{ tag }}</span>
                     </div>
-
                     <a class="btn btn-outline-primary" href="#" role="button">en</a>
-                    <a class="btn btn-outline-dark" href="#" role="button">guitar</a>
                     <img class="glyph-icon" src="../../assets/svg/si-glyph-heart.svg" />
                     <small *ngIf="album.like">{{ album.like }}</small>
                     <img class="glyph-icon" src="../../assets/svg/si-glyph-timer.svg" />
                     <small *ngIf="album.duration">{{ album.duration }} min</small>
+                    <!-- <a class="btn details_btn" role="button" (click)="onSelect(album)">Details</a> -->
+                    <button class="btn btn-dark" (click)="onSelect(album)">Details</button> 
+                    <!-- <small *ngIf="album.status === 'on'">En cours de lecture</small> -->
                 </div>
             </div>
             <nav aria-label="Page navigation example">

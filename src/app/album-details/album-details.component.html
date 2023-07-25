@@ -1,0 +1,24 @@
+<!-- <p>album-details works!</p> -->
+<div class="card details_div_card" *ngIf="album">
+    <!-- <p>{{ album | json}}</p> permet d'afficher l'élément comme si on était dans le console-->
+    <img class="card-img-top" src="{{ album.url }}" alt="Group Music">
+    <div class="card-body">
+        <h5 class="card-title">{{ album.title }}</h5>
+        <p class="card-text">Name : {{ album.name }}</p>
+        <button class="btn btn-primary" (click)="play(album)">Play ▶</button>
+    </div>
+    <!-- Si nous avons des lists -->
+    <!-- <div *ngIf='condition; then ...; else ...' -->
+    <div *ngIf="songs; then ifblock; else elseBlock"></div>
+    <ng-template #ifblock>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let song of songs">{{ song }}</li>
+        </ul>
+    </ng-template>
+    <!-- Au cas contraire -->
+    <ng-template #elseBlock>
+        <ul>
+            <li class="list-group-item">Il n'y a pas de lists pour cet album</li>
+        </ul>
+    </ng-template>
+</div>
