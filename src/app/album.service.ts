@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Album, List } from './album';
+import { Album, List, SortAlbumCallback } from './album';
 import { ALBUMS, ALBUM_LISTS } from './mock-albums';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class AlbumService {
    * @returns la liste de tous les albums
    */
   getAlbums(): Album[] {
-    return this._albums.sort((a: Album, b: Album) => b.duration - a.duration); //utilisation de la méthode 'sort', qui prend une fonction avec paramètre (a, b)
+    return this._albums;
   }
 
   /**
@@ -46,9 +46,19 @@ export class AlbumService {
     return this._albums.length;
   }
 
-  paginate(start: number, end: number):Album[]{
-    return this._albums
-    .slice(start, end)
-    .sort((a: Album, b: Album) => b.duration - a.duration);
+  // paginate(start: number, end: number):Album[]{
+  //   return this._albums
+  //   .slice(start, end)
+  //   .sort((a: Album, b: Album) => b.duration - a.duration);
+  // }
+  order(callback: SortAlbumCallback): AlbumService{
+    this._albums.sort(callback)
+    return this; //retourne le service pour permettere le chainage de méthode
   }
+
+  limit(start: number, end: number):AlbumService{
+    this._albums = this._albums.slice(start, end);
+    return this;
+  }
+
 }

@@ -11,7 +11,6 @@ import { AlbumService } from '../album.service';
 export class AlbumsComponent implements OnInit {
   titlePage: string = "Page principale Albums Music";
   albums: Album[] | undefined = undefined; // albums: Album[] = [];
-  // list: List[] = ALBUM_LISTS;
   selectedAlbum!:Album; // ! signifie je suis sûr qu'une valeur sera passée au moment opportun
   status:string | null = null;
 
@@ -30,7 +29,13 @@ export class AlbumsComponent implements OnInit {
   }
 
   // à l'initialisation affiche moi la liste des albums
+  // ngOnInit(): void {
+  //   this.albums = this.albumService.paginate(0, this.albumService.count());
+  // };
   ngOnInit(): void {
-    this.albums = this.albumService.paginate(0, this.albumService.count());
+    this.albums = this.albumService
+    .order((a: Album, b: Album) => a.duration - b.duration) // lui il ordonne
+    .limit(0, this.albumService.count()) //renvoie une sous partie 
+    .getAlbums();//récupère les albums
   };
 }

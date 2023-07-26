@@ -1,3 +1,4 @@
+<app-search></app-search>
 <p>albums works!</p>
 <h1>{{ titlePage }}</h1>
 <div class="container-fuild principal">
@@ -52,8 +53,9 @@
                 </ul>
             </nav><!-- .pagination -->
             <button type="button" class="btn btn-lg btn-danger">You are in an anonymous mode.</button>
-            <div class="card div_albums_card" *ngFor="let album of albums">
+            <div class="card div_albums_card" *ngFor="let album of albums; let i = index">
                 <div class="card-header">
+                    {{ i + 1}}
                     {{ album.ref }}
                     <span *ngIf="status === album.id">[Play]</span>
                 </div>

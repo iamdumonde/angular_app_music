@@ -18,6 +18,14 @@ export interface List {
   list:Array<string>,
 }
 
+
+/**
+ * interface d'une fonction
+ * une fonction qui prend deux paramètres a et b, et il doit retourner un number
+ */
+export interface SortAlbumCallback {
+  (a: Album, b: Album): number;
+}
 // export class List {
 //   constructor(
 //     public id:string,
