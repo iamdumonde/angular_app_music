@@ -11,6 +11,7 @@ import { AlbumService } from '../album.service';
 export class SearchComponent {
   @Output() searchAlbums: EventEmitter<Album[]> = new EventEmitter(); //Recevoir et émettre un tableau d'album au parent
 
+  word: string = "";
   constructor(
     private albumService:AlbumService
   ){};
@@ -18,6 +19,10 @@ export class SearchComponent {
   onSubmit(form: NgForm){
     const results: Album[] = this.albumService.search(form.value.word);
     this.searchAlbums.emit(results)
-    console.log(results);
+  };
+  
+  onChangeEmit($event: string){
+    const results: Album[] = this.albumService.search($event);
+    this.searchAlbums.emit(results)
   };
 }

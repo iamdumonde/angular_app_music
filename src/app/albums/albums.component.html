@@ -1,6 +1,5 @@
 <app-search (searchAlbums)="search($event)"></app-search>
 <p>albums works!</p>
-<h1>{{ titlePage }}</h1>
 <div class="container-fuild principal">
     <nav class="navbar navbar-expand-lg navbar-light">
         <!-- <a class="navbar-brand" href="#">{{ title }}</a> -->
@@ -21,10 +20,6 @@
                     </a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
         </div>
     </nav>
     <div class="row content">
@@ -32,7 +27,8 @@
             <!-- AlbumDetails communication parent vers enfant -->
             <app-album-details [album]="selectedAlbum" (onPlay)="playParent($event)"></app-album-details>
         </div><!-- .video -->
-        <div class="col-sm-8 music" *ngIf="albums">
+        <div class="col-sm-8 music">
+            <h1>{{ titlePage }}</h1>
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <li class="page-item disabled">
@@ -53,29 +49,38 @@
                 </ul>
             </nav><!-- .pagination -->
             <button type="button" class="btn btn-lg btn-danger">You are in an anonymous mode.</button>
-            <div class="card div_albums_card" *ngFor="let album of albums; let i = index">
-                <div class="card-header">
-                    {{ i + 1}}
-                    {{ album.ref }}
-                    <span *ngIf="status === album.id">[Play]</span>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ album.title }}</h5>
-                    <p class="card-text">{{ album.description }}</p>
-                    <div class="div_tags" *ngIf="album.tags">
-                        <span *ngFor="let tag of album.tags" class="btn btn-outline-white btn-primary span_tags"
-                            href="#" role="button">{{ tag }}</span>
+            <ng-container *ngIf="albums&&albums.length; else notfound">
+                <div class="card div_albums_card" *ngFor="let album of albums; let i = index">
+                    <div class="card-header">
+                        {{ i + 1}}
+                        {{ album.ref }}
+                        <span *ngIf="status === album.id">[Play]</span>
                     </div>
-                    <a class="btn btn-outline-primary" href="#" role="button">en</a>
-                    <img class="glyph-icon" src="../../assets/svg/si-glyph-heart.svg" />
-                    <small *ngIf="album.like">{{ album.like }}</small>
-                    <img class="glyph-icon" src="../../assets/svg/si-glyph-timer.svg" />
-                    <small *ngIf="album.duration">{{ album.duration }} min</small>
-                    <!-- <a class="btn details_btn" role="button" (click)="onSelect(album)">Details</a> -->
-                    <button class="btn btn-dark" (click)="onSelect(album)">Details</button> 
-                    <!-- <small *ngIf="album.status === 'on'">En cours de lecture</small> -->
+                    <div class="card-body">
+                        <h5 class="card-title">{{ album.title }}</h5>
+                        <p class="card-text">{{ album.description }}</p>
+                        <div class="div_tags" *ngIf="album.tags">
+                            <span *ngFor="let tag of album.tags" class="btn btn-outline-white btn-primary span_tags"
+                                href="#" role="button">{{ tag }}</span>
+                        </div>
+                        <a class="btn btn-outline-primary" href="#" role="button">en</a>
+                        <img class="glyph-icon" src="../../assets/svg/si-glyph-heart.svg" />
+                        <small *ngIf="album.like">{{ album.like }}</small>
+                        <img class="glyph-icon" src="../../assets/svg/si-glyph-timer.svg" />
+                        <small *ngIf="album.duration">{{ album.duration }} min</small>
+                        <!-- <a class="btn details_btn" role="button" (click)="onSelect(album)">Details</a> -->
+                        <button class="btn btn-dark" (click)="onSelect(album)">Details</button>
+                        <!-- <small *ngIf="album.status === 'on'">En cours de lecture</small> -->
+                    </div>
                 </div>
-            </div>
+            </ng-container>
+            <ng-template #notfound>
+                <div class="card">
+                    <div class="card-body text-center">
+                        <p class="card-text fs-4">Aucun album retrouvé !🤦‍♂️</p>
+                    </div>
+                </div>
+            </ng-template>
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <li class="page-item disabled">
@@ -96,5 +101,5 @@
                 </ul>
             </nav><!-- .pagination -->
         </div><!-- .music -->
-
     </div>
+</div>
