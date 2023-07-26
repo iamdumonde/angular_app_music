@@ -38,4 +38,13 @@ export class AlbumsComponent implements OnInit {
     .limit(0, this.albumService.count()) //renvoie une sous partie 
     .getAlbums();//récupère les albums
   };
+
+
+  search($event: Album[]){
+    if ($event) {
+      this.albums = $event;
+    }
+    console.log(`Parent sera mis à jour et affichera seulement les albums ${$event}`);
+    
+  }
 }

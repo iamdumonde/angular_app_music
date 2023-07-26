@@ -19,8 +19,8 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
   @Input() album!: Album; //propriété liée passée par le parent
   @Output() onPlay: EventEmitter<Album> = new EventEmitter();
 
-  // albumLists: List[] = [];
-  songs: string[] | undefined = []; //tableau qui stock la lsite des chansons de l'album
+  //tableau qui stock la liste des chansons de l'album
+  songs: string[] | undefined = []; 
 
   constructor(
     private albumService: AlbumService

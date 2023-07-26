@@ -51,14 +51,23 @@ export class AlbumService {
   //   .slice(start, end)
   //   .sort((a: Album, b: Album) => b.duration - a.duration);
   // }
-  order(callback: SortAlbumCallback): AlbumService{
+  order(callback: SortAlbumCallback): AlbumService {
     this._albums.sort(callback)
     return this; //retourne le service pour permettere le chainage de méthode
   }
 
-  limit(start: number, end: number):AlbumService{
+  limit(start: number, end: number): AlbumService {
     this._albums = this._albums.slice(start, end);
     return this;
   }
 
+  search(word: string): Album[] {
+    return this._albums.filter(album => { 
+      return album.title
+      .toLowerCase()
+      .includes(word.trim().toLowerCase());
+    });
+  }
 }
+
+
