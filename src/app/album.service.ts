@@ -16,8 +16,8 @@ export class AlbumService {
    * Fonction de recherche de tous les albums
    * @returns la liste de tous les albums
    */
-  getAlbums():Album[]{
-    return this._albums.sort((a:Album, b:Album) => b.duration - a.duration); //utilisation de la méthode 'sort', qui prend une fonction avec paramètre (a, b)
+  getAlbums(): Album[] {
+    return this._albums.sort((a: Album, b: Album) => b.duration - a.duration); //utilisation de la méthode 'sort', qui prend une fonction avec paramètre (a, b)
   }
 
   /**
@@ -25,7 +25,7 @@ export class AlbumService {
    * @param id identifiant de l'album à rechercher
    * @returns returns la liste 
    */
-  getAlbum(id: string):Album | undefined{
+  getAlbum(id: string): Album | undefined {
     return this._albums.find(album => album.id === id);
   }
 
@@ -34,7 +34,7 @@ export class AlbumService {
    * @param id  identifiant de l'album à rechercher
    * @returns 
    */
-  getAlbumList(id:string): List | undefined{
+  getAlbumList(id: string): List | undefined {
     return this._albumList.find(list => list.id === id);
   }
 
@@ -42,7 +42,13 @@ export class AlbumService {
    * Fonction qui returne le nombre albums
    * @returns le nombre d'albums
    */
-  count(){
+  count() {
     return this._albums.length;
+  }
+
+  paginate(start: number, end: number):Album[]{
+    return this._albums
+    .slice(start, end)
+    .sort((a: Album, b: Album) => b.duration - a.duration);
   }
 }

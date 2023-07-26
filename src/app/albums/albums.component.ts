@@ -31,6 +31,6 @@ export class AlbumsComponent implements OnInit {
 
   // à l'initialisation affiche moi la liste des albums
   ngOnInit(): void {
-    this.albums = this.albumService.getAlbums();
+    this.albums = this.albumService.paginate(0, this.albumService.count());
   };
 }
