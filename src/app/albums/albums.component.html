@@ -1,27 +1,6 @@
 <app-search (searchAlbums)="search($event)"></app-search>
-<p>albums works!</p>
+<!-- <app-login></app-login> -->
 <div class="container-fuild principal">
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <!-- <a class="navbar-brand" href="#">{{ title }}</a> -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
-                        <!-- <span class="sr-only">(current)</span> -->
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Se connecter
-                        <!-- <span class="sr-only">(current)</span> -->
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
     <div class="row content">
         <div class="col-sm-4 video">
             <!-- AlbumDetails communication parent vers enfant -->
@@ -57,7 +36,9 @@
                         <span *ngIf="status === album.id">[Play]</span>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{ album.title }}</h5>
+                        <h5 class="card-title">
+                            <a class="text-info" routerLink="/album/{{ album.id }}">{{ album.title }}</a>
+                        </h5>
                         <p class="card-text">{{ album.description }}</p>
                         <div class="div_tags" *ngIf="album.tags">
                             <span *ngFor="let tag of album.tags" class="btn btn-outline-white btn-primary span_tags"

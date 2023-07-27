@@ -25,7 +25,7 @@ export class AlbumService {
    * @param id identifiant de l'album à rechercher
    * @returns returns la liste 
    */
-  getAlbum(id: string): Album | undefined {
+  getAlbum(id: string | null): Album | undefined {
     return this._albums.find(album => album.id === id);
   }
 

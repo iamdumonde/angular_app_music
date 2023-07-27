@@ -26,12 +26,3 @@ export interface List {
 export interface SortAlbumCallback {
   (a: Album, b: Album): number;
 }
-// export class List {
-//   constructor(
-//     public id:string,
-//     public list:string[],
-//   ){
-//     this.id = id;
-//     this.list = list;
-//   }
-// }
