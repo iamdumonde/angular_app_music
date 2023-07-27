@@ -1,5 +1,5 @@
 <!-- <p>album-details works!</p> -->
-<div class="card details_div_card" *ngIf="album">
+<div [@fadeInAnimation] class="card details_div_card" *ngIf="album">
     <!-- <p>{{ album | json}}</p> permet d'afficher l'élément comme si on était dans le console-->
     <img class="card-img-top" src="{{ album.url }}" alt="Group Music">
     <div class="card-body">

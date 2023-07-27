@@ -3,11 +3,14 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Album, List } from '../album';
 import { AlbumService } from '../album.service';
+import { fadeInAnimation } from '../animation.module';
 
 @Component({
   selector: 'app-album-details',
   templateUrl: './album-details.component.html',
-  styleUrls: ['./album-details.component.css']
+  styleUrls: ['./album-details.component.css'],
+  animations: [fadeInAnimation]
+
 })
 
 //à chaque hook son interface

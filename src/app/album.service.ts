@@ -46,11 +46,6 @@ export class AlbumService {
     return this._albums.length;
   }
 
-  // paginate(start: number, end: number):Album[]{
-  //   return this._albums
-  //   .slice(start, end)
-  //   .sort((a: Album, b: Album) => b.duration - a.duration);
-  // }
   order(callback: SortAlbumCallback): AlbumService {
     this._albums.sort(callback)
     return this; //retourne le service pour permettere le chainage de méthode

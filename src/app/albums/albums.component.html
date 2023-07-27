@@ -1,6 +1,5 @@
-<app-search (searchAlbums)="search($event)"></app-search>
-<!-- <app-login></app-login> -->
-<div class="container-fuild principal">
+<div [@fadeInAnimation] class="container-fuild principal">
+            <app-search (searchAlbums)="search($event)"></app-search>
     <div class="row content">
         <div class="col-sm-4 video">
             <!-- AlbumDetails communication parent vers enfant -->
@@ -49,9 +48,7 @@
                         <small *ngIf="album.like">{{ album.like }}</small>
                         <img class="glyph-icon" src="../../assets/svg/si-glyph-timer.svg" />
                         <small *ngIf="album.duration">{{ album.duration }} min</small>
-                        <!-- <a class="btn details_btn" role="button" (click)="onSelect(album)">Details</a> -->
                         <button class="btn btn-dark" (click)="onSelect(album)">Details</button>
-                        <!-- <small *ngIf="album.status === 'on'">En cours de lecture</small> -->
                     </div>
                 </div>
             </ng-container>

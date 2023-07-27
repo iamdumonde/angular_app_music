@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 //Importer la definition de la classe et les albums
 import { Album, List } from '../album';
 import { AlbumService } from '../album.service';
+import { fadeInAnimation } from '../animation.module';
 
 @Component({
   selector: 'app-albums',
   templateUrl: './albums.component.html',
-  styleUrls: ['./albums.component.css']
+  styleUrls: ['./albums.component.css'],
+  animations: [fadeInAnimation]
+
 })
 export class AlbumsComponent implements OnInit {
   titlePage: string = "Page principale Albums Music";
@@ -28,10 +31,6 @@ export class AlbumsComponent implements OnInit {
     this.status = $event.id;
   }
 
-  // à l'initialisation affiche moi la liste des albums
-  // ngOnInit(): void {
-  //   this.albums = this.albumService.paginate(0, this.albumService.count());
-  // };
   ngOnInit(): void {
     this.albums = this.albumService
     .order((a: Album, b: Album) => a.duration - b.duration) // lui il ordonne
@@ -45,6 +44,5 @@ export class AlbumsComponent implements OnInit {
       this.albums = $event;
     }
     console.log(`Parent sera mis à jour et affichera seulement les albums ${$event}`);
-    
   }
 }

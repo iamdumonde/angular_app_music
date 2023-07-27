@@ -1,0 +1,6 @@
+<div [@fadeInAnimation]="isOpen ? 'open' : 'close'">
+    <button (click)="toggle()" type="button">Toggle Open/close</button>
+    <div class="open-close-container">
+        <p>La boîte est: {{ isOpen ? 'Open' : 'Close' }}</p>
+    </div>
+</div>

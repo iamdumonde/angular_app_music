@@ -1,5 +1,6 @@
 <div class="container-build principal">
   <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">{{ title }}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
       aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -8,19 +9,15 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link" routerLink="/albums" routerLinkActive="active">Home</a>
-            <!-- <span class="sr-only">(current)</span> -->
         </li>
         <li class="nav-item active">
           <a class="nav-link" routerLink="/login" routerLinkActive="active">Se connecter</a>
-            <!-- <span class="sr-only">(current)</span> -->
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/oc" routerLinkActive="active">Open-Close</a>
         </li>
       </ul>
     </div>
-    <!-- <li class="nav-item">
-      <a routerLink="/login" class="">Se connecter</a>
-    </li> -->
   </nav>
-  <!-- LA partie où sera rendu tous les enfants de ce composant 
-  outlet : qui signifie point de sortie-->
   <router-outlet></router-outlet>
 </div>
