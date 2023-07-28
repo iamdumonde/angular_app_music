@@ -8,16 +8,17 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" routerLink="/albums" routerLinkActive="active">Home</a>
+          <a class="nav-link" routerLink="/albums" routerLinkActive="link-active" [routerLinkActiveOptions]="{exact: true}">Home</a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" routerLink="/login" routerLinkActive="active">Se connecter</a>
+          <a class="nav-link" routerLink="/login" routerLinkActive="link-active" [routerLinkActiveOptions]="{exact: true}">Se connecter</a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" routerLink="/oc" routerLinkActive="active">Open-Close</a>
+          <a class="nav-link" routerLink="/oc" routerLinkActive="link-active">Open-Close</a>
         </li>
       </ul>
     </div>
   </nav>
   <router-outlet></router-outlet>
 </div>
+

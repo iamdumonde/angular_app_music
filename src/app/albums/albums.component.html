@@ -7,25 +7,7 @@
         </div><!-- .video -->
         <div class="col-sm-8 music">
             <h1>{{ titlePage }}</h1>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav><!-- .pagination -->
+            <app-paginate></app-paginate>
             <button type="button" class="btn btn-lg btn-danger">You are in an anonymous mode.</button>
             <ng-container *ngIf="albums&&albums.length; else notfound">
                 <div class="card div_albums_card" *ngFor="let album of albums; let i = index">
@@ -59,25 +41,7 @@
                     </div>
                 </div>
             </ng-template>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav><!-- .pagination -->
+            <app-paginate></app-paginate>
         </div><!-- .music -->
     </div>
 </div>

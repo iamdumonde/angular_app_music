@@ -13,6 +13,7 @@ import { AlbumDescriptionComponent } from './album-description/album-description
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { OpenCloseComponent } from './open-close/open-close.component';
+import { PaginateComponent } from './paginate/paginate.component';
 
 
 // définition de la constante pour les routes
@@ -35,7 +36,8 @@ const albumsRoutes: Routes =
     LoginComponent,
     AlbumDescriptionComponent,
     PageNotFoundComponent,
-    OpenCloseComponent
+    OpenCloseComponent,
+    PaginateComponent,
   ],
   imports: [
     BrowserModule,

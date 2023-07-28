@@ -1,0 +1,7 @@
+.link-active {
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: blue;
+    color: #fff;
+    transition-duration: 2s;
+}
