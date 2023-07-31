@@ -7,7 +7,7 @@
         </div><!-- .video -->
         <div class="col-sm-8 music">
             <h1>{{ titlePage }}</h1>
-            <app-paginate></app-paginate>
+            <app-paginate (setPaginate)="onSetPaginate($event)"></app-paginate>
             <button type="button" class="btn btn-lg btn-danger">You are in an anonymous mode.</button>
             <ng-container *ngIf="albums&&albums.length; else notfound">
                 <div class="card div_albums_card" *ngFor="let album of albums; let i = index">
@@ -41,7 +41,7 @@
                     </div>
                 </div>
             </ng-template>
-            <app-paginate></app-paginate>
+            <app-paginate (setPaginate)="onSetPaginate($event)"></app-paginate>
         </div><!-- .music -->
     </div>
 </div>

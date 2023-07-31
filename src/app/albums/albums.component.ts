@@ -32,17 +32,20 @@ export class AlbumsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.albums = this.albumService
-    .order((a: Album, b: Album) => a.duration - b.duration) // lui il ordonne
-    .limit(0, this.albumService.count()) //renvoie une sous partie 
-    .getAlbums();//récupère les albums
+    this.albums = this.albumService.paginate(0, this.albumService.paginateNumberPage())
+    // .order((a: Album, b: Album) => a.duration - b.duration) // lui il ordonne
+    // .limit(0, this.albumService.paginateNumberPage()) //renvoie une sous partie 
+    // .getAlbums();//récupère les albums
   };
-
 
   search($event: Album[]){
     if ($event) {
       this.albums = $event;
     }
     console.log(`Parent sera mis à jour et affichera seulement les albums ${$event}`);
+  };
+
+  onSetPaginate($event: {start: number, end: number}){
+    this.albums = this.albumService.paginate($event.start, $event.end);
   }
 }

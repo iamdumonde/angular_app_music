@@ -1,3 +1,3 @@
 export const environment = {
-    numberPage: 3,
+    numberPage: 2
 };

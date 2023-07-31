@@ -61,6 +61,10 @@ export class AlbumService {
     return this;
   }
 
+  paginate(start: number, end: number): Album[]{
+    return this.getAlbums().slice(start, end)
+  }
+
   search(word: string): Album[] {
     return this._albums.filter(album => { 
       return album.title
