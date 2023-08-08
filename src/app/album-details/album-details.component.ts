@@ -44,6 +44,7 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
   play(album: Album) {
     //émettre un album vers le parent
     this.onPlay.emit(album); //émettre un album vers le parent
+    this.albumService.switchOn(album)
   }
 
 }

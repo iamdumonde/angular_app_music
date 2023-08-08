@@ -9,6 +9,9 @@ import { ALBUMS, ALBUM_LISTS } from './mock-albums';
 })
 
 export class AlbumService {
+  //Subject créé pour gérer le component audio-player
+  subjectAlbum = new Subject<Album>();
+
   private _albums: Album[] = ALBUMS; //convention Private & Protected
   private _albumList: List[] = ALBUM_LISTS;
 
@@ -87,6 +90,34 @@ export class AlbumService {
   currentPage(numberPage: number){
     return this.sendCurrentNumberPage.next(numberPage);
   };
+
+
+  //Partie concernant le composant AudioPlayer
+  /**
+   * Méthode qui permet de changer le statut d'un album à ON
+   * @param album L'album dont le statut doit passer à ON
+   */
+  switchOn(album: Album){
+    //parcourir tous les albums
+    this._albums.forEach(a => {
+      //si l'album actuel est celui qu'on joue ici 
+      if(a.id === album.id){
+        //mettre le status à ON
+        a.status ="on";
+      }else {
+        //sinon mettre le statut à OFF
+        a.status ="off"
+      }
+    })
+    //send a notification for all our subscribers
+    this.subjectAlbum.next(album);
+  }
+
+  /**
+   * Méthode qui permet de changer le statut d'un album à OFF
+   * @param album L'album dont le statut doit passer à OFF
+   */
+  switchOff(album: Album){}
 }
 
 

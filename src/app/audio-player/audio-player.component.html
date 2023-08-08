@@ -1,0 +1,10 @@
+<p>audio-player works!</p>
+<div class="alert alert-primary" role="alert" *ngIf="showplayer">
+    Title: '{{playedAlbum.title}}' , Artiste: {{playedAlbum.name}}
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" [style.width]="ratio + '%'" aria-valuenow="" aria-valuemin="0"
+            aria-valuemax="100">
+        </div>
+    </div>
+    {{currentSongNumber}} / {{total}}
+</div>
