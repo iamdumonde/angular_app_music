@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AlbumService } from '../album.service'
-import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-paginate',
@@ -39,7 +38,9 @@ export class PaginateComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.total = this.albumService.count();
+    this.albumService.count().subscribe(num => {
+      this.total = num
+    })
     console.log(this.total);
 
     this.numberPages = Math.ceil(this.total / this.perPage);

@@ -1,8 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { environment } from 'src/environment/environment';
+import { map, Observable, Subject } from 'rxjs';
+// import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { Album, List, SortAlbumCallback } from './album';
-import { ALBUMS, ALBUM_LISTS } from './mock-albums';
+// import { ALBUMS, ALBUM_LISTS } from './mock-albumss';
 
 @Injectable({
   providedIn: 'root'
@@ -12,29 +14,38 @@ export class AlbumService {
   //Subject créé pour gérer le component audio-player
   subjectAlbum = new Subject<Album>();
 
-  private _albums: Album[] = ALBUMS; //convention Private & Protected
-  private _albumList: List[] = ALBUM_LISTS;
+  private _albumsUrl: string = environment.albumUrl; //convention Private & Protected
+  private _albumListUrl: string = environment.albumListUrl;
 
   //observable qui notifie aux abonnés la page actuelle
   sendCurrentNumberPage = new Subject<number>();
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   /**
    * Fonction de recherche de tous les albums
    * @returns la liste de tous les albums
    */
-  getAlbums(): Album[] {
-    return this._albums;
+  getAlbums(): Observable<Album[]> {
+    return this.http.get<Album[]>(this._albumsUrl).pipe(
+      //ordonner les albums par ordre de durée décroissante
+      map(albums => {
+        return albums.sort(((a: Album, b: Album) => b.duration - a.duration))
+      })
+    )
   }
+
 
   /**
    * 
    * @param id identifiant de l'album à rechercher
    * @returns returns la liste 
    */
-  getAlbum(id: string | null): Album | undefined {
-    return this._albums.find(album => album.id === id);
+  getAlbum(id: string | null): Observable<Album> | undefined {
+    return this.http.get<Album>(this._albumsUrl + '/' + id)
+      .pipe(
+        map((album: Album) => album)
+      );
   }
 
   /**
@@ -42,44 +53,67 @@ export class AlbumService {
    * @param id  identifiant de l'album à rechercher
    * @returns 
    */
-  getAlbumList(id: string): List | undefined {
-    return this._albumList.find(list => list.id === id);
+  getAlbumList(id: string): Observable<List> {
+    return this.http.get<List>(this._albumListUrl + '/' + id);
   }
 
   /**
    * Fonction qui returne le nombre albums
    * @returns le nombre d'albums
    */
-  count() {
-    return this._albums.length;
+  count(): Observable<number> {
+    return this.http.get<Album[]>(this._albumsUrl).pipe(
+      map(
+        (albums: Album[]) => albums.length)
+    );
   }
 
-  order(callback: SortAlbumCallback): AlbumService {
-    this._albums.sort(callback)
-    return this; //retourne le service pour permettere le chainage de méthode
+  // order(callback: SortAlbumCallback): AlbumService {
+  //   this._albums.sort(callback)
+  //   return this; //retourne le service pour permettere le chainage de méthode
+  // }
+
+  // limit(start: number, end: number): AlbumService {
+  //   this._albums = this._albums.slice(start, end);
+  //   return this;
+  // }
+
+  paginate(start: number, end: number): Observable<Album[]> {
+    return this.http.get<Album[]>(this._albumsUrl).pipe(
+      map((albums) => albums
+        .sort((a, b) => b.duration - a.duration)
+        .slice(start, end))
+    );
   }
 
-  limit(start: number, end: number): AlbumService {
-    this._albums = this._albums.slice(start, end);
-    return this;
-  }
 
-  paginate(start: number, end: number): Album[]{
-    return this.getAlbums().slice(start, end)
-  }
-
-  search(word: string): Album[] {
-    return this._albums.filter(album => { 
-      return album.title
-      .toLowerCase()
-      .includes(word.trim().toLowerCase());
-    });
+  /**
+   * Type de requête
+   * 
+   * get => récupérer une ressource 
+   * post => envoyer une ressource
+   * put => m-à-j une ressource
+   * @param word 
+   * @returns 
+   */
+  search(word: string): Observable<Album[]> {
+    return this.http.get<Album[]>(this._albumsUrl).pipe(
+      map((albums: Album[]) => {
+        //parcourir le tableau d'album
+        return albums.filter(album => {
+          //retourner ceux contenant le string de la variable "word"
+          return album.title
+            .toLowerCase()
+            .includes(word.trim().toLowerCase());//trim(): supprime les espaces avant et après d'un mot
+        });
+      })
+    )
   }
 
   /** Paginate
    * Méthode qui ramène le nombre d'album qu'on aura par page
    */
-  paginateNumberPage():number {
+  paginateNumberPage(): number {
     return environment.numberPage;
   }
 
@@ -87,7 +121,7 @@ export class AlbumService {
    * Méthode qui signale à tous les composants la page actuelle
    * @param numberPage numéro de la page actuelle
    */
-  currentPage(numberPage: number){
+  currentPage(numberPage: number) {
     return this.sendCurrentNumberPage.next(numberPage);
   };
 
@@ -97,27 +131,32 @@ export class AlbumService {
    * Méthode qui permet de changer le statut d'un album à ON
    * @param album L'album dont le statut doit passer à ON
    */
-  switchOn(album: Album){
-    //parcourir tous les albums
-    this._albums.forEach(a => {
-      //si l'album actuel est celui qu'on joue ici 
-      if(a.id === album.id){
-        //mettre le status à ON
-        a.status ="on";
-      }else {
-        //sinon mettre le statut à OFF
-        a.status ="off"
-      }
+  switchOn(album: Album): void {
+    //put('localhost:3000/albums/1', album);
+    album.status = 'on';
+    //le code ci-dessous s'execute car on y souscrit
+    this.http.put<void>(this._albumsUrl + '/' + album.id, album).subscribe({
+      next: (e) => console.log(e),
+      error: (err) => console.warn(err),
+      complete: () => this.subjectAlbum.next(album)
     })
-    //send a notification for all our subscribers
-    this.subjectAlbum.next(album);
   }
 
   /**
    * Méthode qui permet de changer le statut d'un album à OFF
    * @param album L'album dont le statut doit passer à OFF
    */
-  switchOff(album: Album){}
+  switchOff(album: Album):void { 
+    album.status ="off";
+    /**
+     * renvoie un observable , et ne s'execute  
+     * donc qu'à la souscription
+     * du coup il faut souscrire pour l'exécuter
+     */
+    this.http.put<void>(this._albumsUrl + '/' + album.id, album)
+    .subscribe(() => {});
+    // this.http.put<void>(`${this._albumsUrl}/${album.id}`, album)
+  }
 }
 
 

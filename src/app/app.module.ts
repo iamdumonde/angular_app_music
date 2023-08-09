@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router'
+import { HttpClient, HttpClientModule } from "@angular/common/http"
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
@@ -49,6 +50,7 @@ const albumsRoutes: Routes =
      * forRoot est une méthode utilisée pour définir les routes à utiliser dans les modules de rootage
      */
     RouterModule.forRoot(albumsRoutes), //chargement des routes dans l'application
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -32,10 +32,13 @@ export class AlbumsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.albums = this.albumService.paginate(0, this.albumService.paginateNumberPage())
-    // .order((a: Album, b: Album) => a.duration - b.duration) // lui il ordonne
-    // .limit(0, this.albumService.paginateNumberPage()) //renvoie une sous partie 
-    // .getAlbums();//récupère les albums
+    this.albumService
+    .paginate(0, this.albumService.paginateNumberPage())
+    .subscribe({
+      next: (alb: Album[]) => {
+        this.albums = alb
+      }
+    })
   };
 
   search($event: Album[]){
@@ -46,6 +49,9 @@ export class AlbumsComponent implements OnInit {
   };
 
   onSetPaginate($event: {start: number, end: number}){
-    this.albums = this.albumService.paginate($event.start, $event.end);
+    this.albumService.paginate($event.start, $event.end)
+    .subscribe({
+      next: (alb: Album[]) => this.albums = alb
+    });
   }
 }

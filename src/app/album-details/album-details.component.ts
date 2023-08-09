@@ -36,7 +36,9 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
   //récupérer la liste des chansons
   ngOnChanges(): void {
     if (this.album) {
-      this.songs = this.albumService.getAlbumList(this.album.id)?.list;
+      this.albumService.getAlbumList(this.album.id).subscribe(
+        (albumList) => {this.songs = albumList.list}
+      )
     }
   }
 
