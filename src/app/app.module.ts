@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router'
 import { HttpClient, HttpClientModule } from "@angular/common/http"
+import { RouterModule } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
@@ -16,18 +16,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { OpenCloseComponent } from './open-close/open-close.component';
 import { PaginateComponent } from './paginate/paginate.component';
 import { AudioPlayerComponent } from './audio-player/audio-player.component';
-
-
-// définition de la constante pour les routes
-const albumsRoutes: Routes = 
-[
-  { path: '', redirectTo: '/albums', pathMatch: 'full' },
-  { path: 'albums',component: AlbumsComponent},
-  { path: 'login', component: LoginComponent },
-  { path: 'album/:albumId', component: AlbumDescriptionComponent },
-  { path: 'oc', component: OpenCloseComponent },
-  { path: "**", component: PageNotFoundComponent }
-];
+import { AppRoutingModule } from './app-routing.module';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -42,15 +32,14 @@ const albumsRoutes: Routes =
     PaginateComponent,
     AudioPlayerComponent,
   ],
+
   imports: [
     BrowserModule,
     FormsModule,
+    AdminModule,
     BrowserAnimationsModule,
-    /**
-     * forRoot est une méthode utilisée pour définir les routes à utiliser dans les modules de rootage
-     */
-    RouterModule.forRoot(albumsRoutes), //chargement des routes dans l'application
-    HttpClientModule,
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
