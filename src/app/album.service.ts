@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
-// import { environment } from 'src/environments/environment.development';
 import { environment } from 'src/environments/environment';
 import { Album, List, SortAlbumCallback } from './album';
-// import { ALBUMS, ALBUM_LISTS } from './mock-albumss';
+
+// Import lodash
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class AlbumService {
   getAlbums(): Observable<Album[]> {
     return this.http.get<Album[]>(this._albumsUrl).pipe(
       //ordonner les albums par ordre de durée décroissante
-      map(albums => {
+      map(albums => {        
         return albums.sort(((a: Album, b: Album) => b.duration - a.duration))
       })
     )
@@ -80,6 +81,21 @@ export class AlbumService {
 
   paginate(start: number, end: number): Observable<Album[]> {
     return this.http.get<Album[]>(this._albumsUrl).pipe(
+      map((albums: Album[]) => {
+        const res = _.values(albums)
+        console.log('sans lodash', albums);
+        console.log('avec lodash' , res); 
+        
+        /**
+         * retourne un tableau [
+         * {
+         *  "O" = {id: , title: "titre"}
+         * }
+         * ]
+         */
+        return res;
+      }),
+
       map((albums) => albums
         .sort((a, b) => b.duration - a.duration)
         .slice(start, end))

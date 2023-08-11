@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    numberPage: 5,
+    numberPage: 2,
     albumUrl: 'http://localhost:3000/albums',
     albumListUrl: 'http://localhost:3000/albumList'
 };

@@ -40,16 +40,16 @@ export class PaginateComponent implements OnInit {
   ngOnInit(): void {
     this.albumService.count().subscribe(num => {
       this.total = num
+      this.numberPages = Math.ceil(this.total / this.perPage);
+      console.log(this.numberPages);
+      for (let i = 1; i <= this.numberPages; i++) {
+        this.pages.push(i);
+      }
     })
-    console.log(this.total);
-
-    this.numberPages = Math.ceil(this.total / this.perPage);
-    console.log(this.numberPages);
-
-
-    for (let i = 1; i <= this.numberPages; i++) {
-      this.pages.push(i);
-    }
+    // console.log(this.total);
+    
+    
+    
   }
 
 

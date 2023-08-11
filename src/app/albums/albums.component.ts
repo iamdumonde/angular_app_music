@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 //Importer la definition de la classe et les albums
 import { Album, List } from '../album';
+
 import { AlbumService } from '../album.service';
 import { fadeInAnimation } from '../animation.module';
 
@@ -36,7 +38,9 @@ export class AlbumsComponent implements OnInit {
     .paginate(0, this.albumService.paginateNumberPage())
     .subscribe({
       next: (alb: Album[]) => {
-        this.albums = alb
+        this.albums = alb,
+        console.log("getAlbums()", this.albums);
+
       }
     })
   };
