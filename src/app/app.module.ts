@@ -17,6 +17,7 @@ import { PaginateComponent } from './paginate/paginate.component';
 import { AudioPlayerComponent } from './audio-player/audio-player.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AdminModule } from './admin/admin.module';
+import { ShareModule } from './share.module';
 
 @NgModule({
   declarations: [
@@ -28,17 +29,18 @@ import { AdminModule } from './admin/admin.module';
     AlbumDescriptionComponent,
     PageNotFoundComponent,
     OpenCloseComponent,
-    PaginateComponent,
+    // PaginateComponent,
     AudioPlayerComponent,
   ],
 
   imports: [
     BrowserModule,
     FormsModule,
-    AdminModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    AdminModule,
+    ShareModule
   ],
   providers: [],
   bootstrap: [AppComponent]

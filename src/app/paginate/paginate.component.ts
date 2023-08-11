@@ -47,9 +47,6 @@ export class PaginateComponent implements OnInit {
       }
     })
     // console.log(this.total);
-    
-    
-    
   }
 
 
