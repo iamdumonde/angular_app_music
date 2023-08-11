@@ -5,8 +5,8 @@ import { AlbumsComponent } from './albums/albums.component';
 import { LoginComponent } from './login/login.component';
 import { AlbumDescriptionComponent } from './album-description/album-description.component';
 import { OpenCloseComponent } from './open-close/open-close.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AlbumComponent } from './admin/album/album.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 // définition de la constante pour les routes
