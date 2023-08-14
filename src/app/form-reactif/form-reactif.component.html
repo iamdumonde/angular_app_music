@@ -1,0 +1,69 @@
+<p>form-reactif works!</p>
+
+<!-- <pre>{{ musicForm | json }}</pre> -->
+<p>Name :{{ musicForm.get('name')?.value }}</p>
+<p>Hauteur :{{ musicForm.get('auteur')?.value }}</p>
+<p>Style :{{ musicForm.get('style')?.value }}</p>
+
+<div class="container-sm bg-primary p-5">
+    <form [formGroup]="musicForm"  (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="album">Nom de l'album :</label>
+            <input type="text" class="form-control" id="album" placeholder="Name" formControlName="name" required>
+            <div class="alert alert-danger" *ngIf="name?.touched && (name?.invalid || name?.pristine)">
+                <p *ngIf="name?.errors?.['required']">Le nom de l'album est requis !</p>
+                <p *ngIf="name?.errors?.['minlength']">
+                    Le nom de l'album doit contenir 
+                    {{name?.errors?.['minlength']?.["requiredLength"]}} 
+                    caractères(s). Vous en avez fournis 
+                    {{name?.errors?.['minlength']?.["actualLength"]}}
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="auteur">Auteur :</label>
+            <input type="text" class="form-control" id="auteur" placeholder="Auteur" formControlName="auteur" required>
+            <div class="alert alert-danger" *ngIf="auteur?.touched && (auteur?.invalid || auteur?.pristine)">L'auteur est requis !</div>
+        </div>
+        <div class="form-group">
+            <label for="style">Style de musique :</label>
+            <select name="" id="style" class="form-control" formControlName="style">
+                <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-danger m-1" >Add</button>
+    </form>
+
+    <!-- <p>
+        <input type="text" placeholder="search" [formControl]="search">
+    </p>
+    <p>
+        Search :{{search.value}}
+    </p> -->
+</div>
+
+<!-- <div class="container" [hidden]="!submitted">
+    <h2>Vous avez soumis l'album suivant : </h2>
+    <div class="row">
+        <div class="col-ms-3">Nom de l'album :</div>
+        <div class="col-md-0"><strong>
+            {{ musicModel.name }}
+        </strong></div>
+    </div>
+    <div class="row">
+        <div class="col-ms-3">Auteur :</div>
+        <div class="col-md-0"><strong>
+            {{ musicModel.auteur }}
+        </strong></div>
+    </div>
+    <div class="row">
+        <div class="col-ms-3">Le style de musique :</div>
+        <div class="col-md-0"><strong>
+            {{ musicModel.style }}
+        </strong></div>
+    </div>
+
+    <br>
+    <button type="button" class="btn btn-primary" (click)="submitted = false">Editer</button>
+</div> -->

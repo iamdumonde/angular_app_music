@@ -7,6 +7,8 @@ import { AlbumDescriptionComponent } from './album-description/album-description
 import { OpenCloseComponent } from './open-close/open-close.component';
 import { AlbumComponent } from './admin/album/album.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { FormTemplateComponent } from './form-template/form-template.component';
+import { FormReactifComponent } from './form-reactif/form-reactif.component';
 
 
 // définition de la constante pour les routes
@@ -18,6 +20,8 @@ const albumsRoutes: Routes =
     { path: 'album/:albumId', component: AlbumDescriptionComponent },
     { path: 'oc', component: OpenCloseComponent },
     { path: 'admin', component: AlbumComponent },
+    { path: 'template', component: FormTemplateComponent },
+    { path: 'reactif', component: FormReactifComponent },
 
     // Danger Chien Méchant
     { path: "**", component: PageNotFoundComponent }
