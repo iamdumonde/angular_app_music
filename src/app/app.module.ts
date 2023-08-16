@@ -38,7 +38,7 @@ import { FormReactifComponent } from './form-reactif/form-reactif.component';
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule,
+    // ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AdminModule,

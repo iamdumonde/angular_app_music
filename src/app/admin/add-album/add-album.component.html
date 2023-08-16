@@ -1,27 +1,72 @@
 <p>add-album works!</p>
 <!-- div.container-sm>form>div.form-group*5>(label+input.form-control) -->
 <div class="container-sm bg-primary">
-    <form action="">
+
+    <form action="" [formGroup]="albumForm" (ngSubmit)="onSubmit()">
+
         <div class="form-group">
             <label for="name">Name :</label>
-            <input type="text" class="form-control" placeholder="Name">
+            <input formControlName="name" type="text" class="form-control" placeholder="Name">
+            <div *ngIf="name?.invalid && name?.touched" class="alert salert-danger">
+                <p *ngIf="name?.errors?.['required']">Ce champs est requis !</p>
+
+                <p *ngIf="name?.errors?.['minlength']">
+                    Ce champs doit avoir une longueur minimale de
+                    {{name?.errors?.['minlength']?.requiredLength}}
+                    caractères !
+                </p>
+                <p>{{name?.errors | json}}</p>
+            </div>
         </div>
+
         <div class="form-group">
             <label for="title">Title :</label>
-            <input type="text" class="form-control" id="title" placeholder="Title">
+            <input formControlName="title" type="text" class="form-control" id="title" placeholder="Title">
+            <div *ngIf="title?.invalid && title?.touched" class="alert salert-danger">
+                <p *ngIf="title?.errors?.['required']">Ce champs est requis !</p>
+            </div>
         </div>
+
         <div class="form-group">
             <label for="ref">Ref :</label>
-            <input type="text" class="form-control" placeholder="Ref">
+            <input formControlName="ref" type="text" class="form-control" placeholder="Ref">
+            <div *ngIf="ref?.invalid && ref?.touched" class="alert salert-danger">
+                <p *ngIf="ref?.errors?.['required']">Ce champs est requis !</p>
+                <p *ngIf="ref?.errors?.['pattern']">
+                    Ce champs doit suivre le format d'expression régulière 
+                    <strong><em>{{ref?.errors?.['pattern']?.requiredPattern}}</em></strong>!,
+                    <a href="http://https://developer.mozilla.org/fr/docs/Glossary/Regular_expression" target="_blank" rel="noopener noreferrer">En savoir plus sur les expressions régulières</a>
+                </p>
+            </div>
         </div>
+
         <div class="form-group">
             <label for="duration">Duration :</label>
-            <input type="text" class="form-control" id="duration" placeholder="duration">
+            <input formControlName="duration" type="text" class="form-control" id="duration" placeholder="duration">
+            <div *ngIf="duration?.invalid && duration?.touched" class="alert salert-danger">
+                <p *ngIf="duration?.errors?.['required']">Ce champs est requis !</p>
+                <p *ngIf="duration?.errors?.['pattern']">
+                    Ce champs doit suivre un format d'expression régulière
+                    <strong><em>{{duration?.errors?.['pattern']?.requiredPattern}}</em></strong>!,
+                    <a href="http://https://developer.mozilla.org/fr/docs/Glossary/Regular_expression" target="_blank">En savoir plus sur les expressions régulières</a>
+                </p>
+                <p *ngIf="duration?.errors?.['max']">
+                    La valeur saisie ne doit pas être supérieure à {{duration?.errors?.['max']?.max}}
+                </p>
+
+            </div>
         </div>
+
         <div class="form-group">
             <label for="description">Description :</label>
-            <textarea id="description" class="form-control" rows="3"></textarea>
+            <textarea formControlName="description" id="description" class="form-control" rows="3"></textarea>
+            <div *ngIf=" description?.invalid && description?.touched" class="alert salert-danger">
+                <p *ngIf="description?.errors?.['required']">Ce champs est requis !</p>
+            </div>
         </div>
-        <button type="submit" class="btn btn-danger">Add</button>
+
+        <button [disabled]="albumForm.invalid" type="submit" class="btn btn-danger">Add</button>
+
     </form>
+
 </div>
