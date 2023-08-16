@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Album } from 'src/app/album';
 import { AlbumService } from 'src/app/album.service';
 
@@ -7,12 +8,19 @@ import { AlbumService } from 'src/app/album.service';
   templateUrl: './album.component.html',
   styleUrls: ['./album.component.css']
 })
+
 export class AlbumComponent implements OnInit {
   constructor(
-    private aS: AlbumService
+    private aS: AlbumService,
+    private route: ActivatedRoute
   ) { }
 
+
+  //
+  message: string | undefined;
+
   albums!: Album[];
+  
   ngOnInit(): void {
     this.aS.getAlbums().subscribe({
       next: (alb) => { this.albums = alb }
@@ -27,6 +35,11 @@ export class AlbumComponent implements OnInit {
         console.log("getAlbums()", this.albums);
 
       }
+    })
+
+    //
+    this.route.queryParams.subscribe(params => {
+      this.message = params['message']
     })
   }
 

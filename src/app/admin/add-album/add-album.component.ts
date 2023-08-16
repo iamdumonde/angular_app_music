@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validator, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validator, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AlbumService } from 'src/app/album.service';
 import { Album } from 'src/app/album';
 
@@ -12,12 +13,15 @@ import { Album } from 'src/app/album';
 export class AddAlbumComponent implements OnInit {
   albumForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.albumForm = this.fb.group({
       id: '',
-      
+
       name: ['',
         [
           Validators.required,
@@ -54,6 +58,13 @@ export class AddAlbumComponent implements OnInit {
         ]
       ],
 
+      tags: this.fb.array([
+        this.fb.control('')
+      ]),
+      // tags: new FormArray({
+      //   new FormControl('')
+      // }),
+
       status: 'off'
     });
   }
@@ -65,9 +76,25 @@ export class AddAlbumComponent implements OnInit {
   get duration() { return this.albumForm.get('duration') }
   get description() { return this.albumForm.get('description') }
 
+  get tags() { return this.albumForm.get('tags') as FormArray }
+
+  /**
+   * Bouton de soumission
+   */
   onSubmit() {
+    //Envoi de données dans la BDD
     console.log(this.albumForm.value);
+
+    //Redirection sur la page "admin"
+    this.router.navigate(['/admin'], {
+      queryParams: {
+        message: "Album ajouté avec succès",
+        model: "text-davinci-002-render-sha"
+      }
+    })
   }
 
-
+  addTag() {
+    this.tags.push(this.fb.control(''))
+  }
 }

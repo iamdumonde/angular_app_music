@@ -53,7 +53,6 @@
                 <p *ngIf="duration?.errors?.['max']">
                     La valeur saisie ne doit pas être supérieure à {{duration?.errors?.['max']?.max}}
                 </p>
-
             </div>
         </div>
 
@@ -65,6 +64,16 @@
             </div>
         </div>
 
+        <div formArrayName="tags">
+            <h2>Etiquettes de l'album</h2>
+            <button type="button" (click)="addTag()" class="btn btn-secondary">+ Ajouter une étiquette !</button>
+            <div class="form-group" *ngFor="let tag of tags.controls, let i = index">
+                <label for="tag-{{i}}">Tag : </label>
+                <input [formControlName]="i" type="text" id="tag-{{i}}" style="width: 300px;">
+            </div>
+        </div>
+
+        <br>
         <button [disabled]="albumForm.invalid" type="submit" class="btn btn-danger">Add</button>
 
     </form>

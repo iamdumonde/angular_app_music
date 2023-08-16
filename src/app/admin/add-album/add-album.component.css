@@ -1,8 +1,8 @@
-.ng-valid:not(form),
+.ng-valid:not(form, [formArrayName]),
 .ng-valid.required {
     border-left: 8px solid #42a948;
 }
 
-.ng-invalid:not(form) {
+.ng-invalid:not(form, [formArrayName]) {
     border-left: 8px solid #c41700;
 }
